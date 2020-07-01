@@ -1,0 +1,5 @@
+package com.demo.idat.data;
+
+public class Usuario {
+
+}

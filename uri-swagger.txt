@@ -1,0 +1,3 @@
+http://localhost:8087/idat/
+http://localhost:8087/idat/rest/application.wadl
+http://localhost:8087/idat/rest/swagger.json

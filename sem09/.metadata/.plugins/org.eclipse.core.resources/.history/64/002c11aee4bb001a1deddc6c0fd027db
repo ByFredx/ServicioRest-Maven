@@ -1,0 +1,148 @@
+package com.demo.idat.controller;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+
+import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
+import javax.ws.rs.GET;
+import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
+import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
+
+import com.demo.idat.data.Mensaje;
+import com.demo.idat.data.Usuario;
+
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
+
+@Path("/usuarios")
+@Api(value="usuarios", description="Ejemplo de documentacion con SWAGGER service")
+@Produces(MediaType.APPLICATION_JSON)
+public class UsuarioController {
+
+	private static final List<Usuario> USUARIOS = new ArrayList<Usuario>();
+	static {
+		USUARIOS.add(new Usuario(1L, "Fredy", "Huachaca", 28));
+		USUARIOS.add(new Usuario(2L, "Marco", "Huachaca", 26));
+		USUARIOS.add(new Usuario(3L, "Alex", "Huachaca", 24));
+		USUARIOS.add(new Usuario(4L, "Frank", "Huachaca", 2));
+	}
+	
+	private static final Response NO_ENCONTRADO = Response.status(Response.Status.NOT_FOUND)
+			.entity(new Mensaje("El usuario no existe")).build();
+
+	//private static final Response USUARIO_EXISTE = Response.status(Response.Status.BAD_REQUEST)
+	//		.entity(new Mensaje("El usuario ya existe")).build();
+
+	private static final Response OK = Response.status(Response.Status.OK)
+			.entity(new Mensaje("Operacion realizada correctamente")).build();
+
+	@GET
+	@Path("/")
+	@Produces( MediaType.APPLICATION_JSON )
+	@ApiOperation(value="Obtiene todos los usuario", httpMethod = "GET")
+	public Response listar() {
+		return Response.status(Response.Status.OK).entity(USUARIOS).build();
+	}
+
+	@GET
+	@Path("/{id}")
+	@Produces( MediaType.APPLICATION_JSON )
+	@ApiOperation(value="Obtiene usuario por ID", httpMethod = "GET")
+	public Response obtenerPorId(
+			 @ApiParam(value = "ID del usuario a buscar", allowableValues = "range[1," + Integer.MAX_VALUE + "]", required = true) 
+			 @PathParam("id") Long id) {
+		
+		Optional<Usuario> opt = USUARIOS.stream().filter(usuario->usuario.getId().equals(id)).findFirst();
+		if(opt.isPresent())
+			return Response.status(Response.Status.OK).entity(opt.get()).build();
+		return NO_ENCONTRADO;
+	}
+
+	@POST
+	@Path("/")
+	@Consumes({ MediaType.APPLICATION_JSON })
+	@ApiOperation(value="Registro de usuario", httpMethod = "POST")  
+	public Response registrar(
+			@ApiParam(value = "Datos del nuevo usuario", 
+					  required = true) Usuario nuevousuario) {
+		
+		Long id = USUARIOS.get(USUARIOS.size()-1).getId() +1;
+		nuevousuario.setId(id);;
+		USUARIOS.add(nuevousuario);
+		return OK;
+	}
+
+	@PUT
+	@Path("/{id}")
+	@Consumes({ MediaType.APPLICATION_JSON })
+	@ApiOperation(value="Modificacion de usuario", httpMethod = "PUT")
+	public Response modificar(
+			 @ApiParam(value = "ID del usuario a modificar", allowableValues = "range[1," + Integer.MAX_VALUE + "]", required = true)
+			 @PathParam("id") Long id, 
+			 @ApiParam(value = "Datos del usuario a modificar", required = true) 
+			 Usuario usuarioModificado) {
+		
+		Optional<Usuario> opt = USUARIOS.stream().filter(usuario->usuario.getId().equals(id)).findFirst();
+		if(!opt.isPresent())
+			return NO_ENCONTRADO;		
+		for (Usuario usuario : USUARIOS) {
+			if(usuario.getId().equals(id)) {
+				usuario.setNombres(usuarioModificado.getNombres());
+				usuario.setApellidos(usuarioModificado.getApellidos());
+				usuario.setEdad(usuarioModificado.getEdad());
+				break;
+			}
+		}
+		return Response.status(Response.Status.OK).entity(opt.get()).build();
+		
+	}
+
+	@DELETE
+	@Path("/{id}")
+	@ApiOperation(value="Eliminacion de usuario por id", httpMethod = "DELETE")
+	public Response eliminar(
+			@ApiParam(value = "ID del usuario a eliminar", 
+			allowableValues = "range[1," + Integer.MAX_VALUE + "]",
+			required = true)
+			@PathParam("id")
+			Long id) {
+		
+		Optional<Usuario> opt = USUARIOS.stream().filter(usuario -> usuario.getId().equals(id)).findFirst();
+		
+		if(!opt.isPresent())
+			return NO_ENCONTRADO;
+		for (Usuario usuario : USUARIOS) {
+			if(usuario.getId().equals(id)) {
+				USUARIOS.remove(usuario);
+				break;
+			}
+		}
+		return OK;
+	}
+
+}
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+}

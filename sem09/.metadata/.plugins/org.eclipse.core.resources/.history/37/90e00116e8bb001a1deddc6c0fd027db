@@ -1,0 +1,5 @@
+package com.demo.idat.filter;
+
+public class SwaggerFilter {
+
+}

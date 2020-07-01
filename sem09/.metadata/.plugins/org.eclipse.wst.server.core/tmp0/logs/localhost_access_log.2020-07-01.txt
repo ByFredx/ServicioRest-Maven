@@ -1,0 +1,14 @@
+127.0.0.1 - - [01/Jul/2020:17:13:46 -0500] "GET / HTTP/1.1" 404 1013
+0:0:0:0:0:0:0:1 - - [01/Jul/2020:17:13:47 -0500] "GET /idat/ HTTP/1.1" 404 -
+0:0:0:0:0:0:0:1 - - [01/Jul/2020:17:15:19 -0500] "GET /idat/rest/usuarios HTTP/1.1" 200 250
+0:0:0:0:0:0:0:1 - - [01/Jul/2020:17:16:29 -0500] "GET /idat/rest/aplication.wadl HTTP/1.1" 404 -
+0:0:0:0:0:0:0:1 - - [01/Jul/2020:17:16:40 -0500] "GET /idat/rest/application.wadl HTTP/1.1" 200 1593
+0:0:0:0:0:0:0:1 - - [01/Jul/2020:17:18:59 -0500] "GET /idat/rest/swagger.json HTTP/1.1" 200 2231
+0:0:0:0:0:0:0:1 - - [01/Jul/2020:17:22:26 -0500] "GET /idat/rest/swagger.json HTTP/1.1" 200 2231
+0:0:0:0:0:0:0:1 - - [01/Jul/2020:17:22:27 -0500] "GET /favicon.ico HTTP/1.1" 404 1024
+0:0:0:0:0:0:0:1 - - [01/Jul/2020:17:29:26 -0500] "GET /idat/rest/usuarios/1 HTTP/1.1" 200 70
+0:0:0:0:0:0:0:1 - - [01/Jul/2020:17:29:28 -0500] "GET /idat/rest/usuarios/1 HTTP/1.1" 200 70
+0:0:0:0:0:0:0:1 - - [01/Jul/2020:17:29:40 -0500] "GET /idat/rest/usuarios/2 HTTP/1.1" 200 70
+0:0:0:0:0:0:0:1 - - [01/Jul/2020:17:30:47 -0500] "GET /idat/rest/usuarios HTTP/1.1" 200 250
+0:0:0:0:0:0:0:1 - - [01/Jul/2020:17:30:53 -0500] "GET /idat/rest/usuarios HTTP/1.1" 200 250
+0:0:0:0:0:0:0:1 - - [01/Jul/2020:17:31:39 -0500] "GET /idat/rest/usuarios HTTP/1.1" 200 250
